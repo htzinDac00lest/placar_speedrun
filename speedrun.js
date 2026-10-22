@@ -25,8 +25,7 @@ class Run {
 
 let jogos = []
 let usuarios = []
-let usuario = new Usuario('joao', 'brasil')
-let run = new Run(usuario, jogo, '1:30:00', 'any%')
+let run = []
 
 let menu = -1
 while (menu != 0){
@@ -34,23 +33,27 @@ while (menu != 0){
 
     if(menu == 1){
         let nomeJogo = prompt('digite o nome do jogo')
-        let categoria = prompt ('digite a categoria')
-        let jogo = new Game(nomeJogo, categoria)
-
-        }else {
-            console.log('Categoria invalida')
+        let jogo = new Game(nomeJogo)
+        let i = 0
+        while (i <= jogos.length){
+        if (jogo == jogos[i]){
+            console.log('esse jogo ja foi registrado')
+            break
         }
-        //aqui tu deve verificar a categoria antes de criar um jogo
-        jogos.push(jogo)
+        if (i == jogos.length){
+            jogos.push(jogo)
+        }
+        }
+    }
         if(menu == 2){
         let username = prompt('digite um nome de usuario')
         let nacionalidade = prompt('qual é a sua nacionalidade?')
-        if (username == usuario.nome){
-            console.log('nome de usuario indisponivel,escolha outro nome')
-        }
-        else{
-            let runner = new usuario(username,nacionalidade) 
-            usuarios.push(runner)
+        if(usuarios.includes(username)){
+            console.log('Nome indisponivel')
+        }else{
+            let runner = new Usuario(username,nacionalidade) 
+            usuarios.push(username)
         }
     } 
 }
+//new Run(usuario, jogo, '1:30:00', 'any%')
