@@ -24,6 +24,7 @@ class Run {
 
 
 let jogos = []
+let nomesUsuarios = []
 let usuarios = []
 let run = []
 
@@ -33,24 +34,24 @@ while (menu != 0){
 
     if(menu == 1){
         let nomeJogo = prompt('digite o nome do jogo')
-        let jogo = new Game(nomeJogo)
-        let i = 0
         if (jogos.includes(nomeJogo)){
             console.log('esse jogo ja foi registrado')
             break
         }
         else{
-            jogos.push(nomeJogo)
+            let jogo = new Game(nomeJogo)
+            jogos.push(jogo)
         }
     }
         if(menu == 2){
         let username = prompt('digite um nome de usuario')
         let nacionalidade = prompt('qual é a sua nacionalidade?')
-        if(usuarios.includes(username)){
+        if(nomesUsuarios.includes(username)){
             console.log('Nome indisponivel')
         }else{
             let runner = new Usuario(username,nacionalidade) 
-            usuarios.push(username)
+            usuarios.push(runner)
+            nomesUsuarios.push(username)
         }
     }
     if(menu == 3){
