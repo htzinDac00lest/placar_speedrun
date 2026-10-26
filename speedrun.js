@@ -13,7 +13,7 @@ class Usuario{
 }
 
 class Run {
-    constructor(usuario,game,tempo, categoria){
+    constructor(usuario,game,tempo,categoria){
         this.usuario = usuario
         this.game = game
         this.tempo = tempo
@@ -35,14 +35,12 @@ while (menu != 0){
         let nomeJogo = prompt('digite o nome do jogo')
         let jogo = new Game(nomeJogo)
         let i = 0
-        while (i <= jogos.length){
-        if (jogo == jogos[i]){
+        if (jogos.includes(nomeJogo)){
             console.log('esse jogo ja foi registrado')
             break
         }
-        if (i == jogos.length){
-            jogos.push(jogo)
-        }
+        else{
+            jogos.push(nomeJogo)
         }
     }
         if(menu == 2){
@@ -54,6 +52,10 @@ while (menu != 0){
             let runner = new Usuario(username,nacionalidade) 
             usuarios.push(username)
         }
+    }
+    if(menu == 3){
+        let jogo = ('qual jogo você quer adicionar uma categoria?')
+        let nomeCategoria =prompt('qual o nome da categoria?')
     } 
 }
 //new Run(usuario, jogo, '1:30:00', 'any%')
