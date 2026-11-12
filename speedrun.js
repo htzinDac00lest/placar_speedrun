@@ -31,10 +31,10 @@ class Run {
     }
 }
 
-function AdicionarCategoria(Nome, Categoria) {
+function AdicionarCategoria(n, Categoria) {
     let i = 0;
     while (i < jogos.length) {
-      if (jogos[i].nome.toLowerCase() == Nome.toLowerCase()){
+      if (jogos[i].nome.toLowerCase() == n.toLowerCase()){
         jogos[i].categorias += Categoria
       }
       i++;
@@ -54,7 +54,7 @@ async function Perguntar(Texto) {
 
 let menu = -1
 while (menu != 0){
-    menu = await Perguntar('Digite uma opcao \n 1-Adicionar jogo \n 2- Adicionar usuario \n 3- Adicionar categoria \n 4- listar jogos\n')
+    menu = await Perguntar('Digite uma opcao \n 1-Adicionar jogo \n 2- Adicionar usuario \n 3- Adicionar categoria \n 4- listar jogos\n 5- listar usuarios\n 6- ')
 
     if(menu == 1){
         let i = 0
@@ -65,10 +65,10 @@ while (menu != 0){
             break
         }
         i++
-    }
+        }
             let jogo = new Game(nomeJogo)
             jogos.push(jogo)
-            
+            console.log('jogo adicionado com sucesso!')
     }
         if(menu == 2){
         let username = await Perguntar('digite um nome de usuario\n')
@@ -80,7 +80,7 @@ while (menu != 0){
                 break
             }
         i++
-    }
+        }
             let runner = new Usuario(username,nacionalidade) 
             usuarios.push(runner)
     }
@@ -89,29 +89,66 @@ while (menu != 0){
             let index = ''
             for(let i = 0; i < jogos.length; i++){
                 if(jog.toUpperCase() == jogos[i].nome.toUpperCase()){
-                    index = i
-                } 
+                    index = i+1
+                }
             }
-            if (index == ''){
+            if (index == 0){
                 console.log('o jogo não existe ou não foi adicionado')
                 break
             }
             let nomeCategoria = await Perguntar('qual o nome da categoria que você gostaria de adicionar?\n')
             let t = 0
-                while(t < jogos[index].categorias.length){
-                    if(jogos[index].categorias[t] == nomeCategoria){
+                while(t < jogos[(index-1)].categorias.length){
+                    if(jogos[index-1].categorias[t] == nomeCategoria){
                         console.log('essa categoria ja foi registrada\n')
                         break
                     }
                 t++
             }
-        AdicionarCategoria(jogo,nomeCategoria)
+        AdicionarCategoria(jog,nomeCategoria)
     }
     if (menu == 4){
         let i = 0
         while(i < jogos.length){
             console.log(`O jogo ${jogos[i].nome} com as categorias: ${jogos[i].categorias}`)
             i++
+        }
+    }
+    if (menu == 5){
+        let i = 0
+        while(i < usuarios.length){
+            console.log(`nome : ${usuarios[i].nome}
+                nacionalidade: ${usuarios[i].nacionalidade}\n \n`)
+            i++
+        }
+    }
+    if (menu == 6){
+        let jog = await Perguntar('de qual jogo vc gostaria de publicar uma run?\n')
+        let index = ''
+        for(let i = 0; i < jogos.length; i++){
+            if(jog.toUpperCase() == jogos[i].nome.toUpperCase()){
+                index = i+1
+            }
+        }
+        if (index == 0){
+            console.log('o jogo não existe ou não foi adicionado\n')
+            break
+        }
+        let nomeCategoria = await Perguntar('qual o nome da categoria que você gostaria de adicionar?\n')
+        let t = 0
+            while(t < jogos[(index-1)].categorias.length){
+                if(jogos[index-1].categorias[t] == nomeCategoria){
+                    let player = await Perguntar('qual é o seu username?')
+                    z = 0
+                    while (z < usuarios.length){
+                        if(usuarios[i].nome == username){
+                            let time = await Perguntar('quanto tempo durou a run?')
+
+                        }
+                        z++
+                    }
+                }
+            t++
         }
     }
 }
