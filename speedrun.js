@@ -43,7 +43,7 @@ function AdicionarCategoria(n, Categoria) {
 
 let jogos = []
 let usuarios = []
-let run = []
+let runs = []
 
 let rl = readline.createInterface({ input: process.stdin, output: process.stdout });
 
@@ -136,19 +136,43 @@ while (menu != 0){
         }
         let nomeCategoria = await Perguntar('qual o nome da categoria que você gostaria de adicionar?\n')
         let t = 0
+        categExiste = 0
             while(t < jogos[(index-1)].categorias.length){
                 if(jogos[index-1].categorias[t] == nomeCategoria){
-                    let player = await Perguntar('qual é o seu username?')
-                    z = 0
+                    categExiste = 1
+                    let player = await Perguntar('qual é o seu username?\n')
+                    let z = 0
+                    let existe = 0
                     while (z < usuarios.length){
-                        if(usuarios[i].nome == username){
-                            let time = await Perguntar('quanto tempo durou a run?')
-
+                        if(usuarios[i].nome == player){
+                            existe = 1
+                            let time = await Perguntar('quanto tempo durou a run? (no formato hr:min:seg:ms (usando apenas 2 digitos em cada))\n')
+                            let hr = (time[0]*10) + (time[1])
+                            let min = (time[3]*10) + (time[4])
+                            let seg = (time[6]*10) + (time[7])
+                            let ms = (time[9]*10) + (time[10])
+                            if ((min > 59) || (seg > 59) || (ms > 99)){
+                                console.log('tempo invalido\n')
+                                break
+                            }
+                            else{
+                                console.logg('run publicada com sucesso!')
+                                let run = new Run (player,jog,time,nomeCategoria)
+                                runs.push(run)
+                            }
                         }
                         z++
                     }
+                    if (existe == 0){
+                        console.log('o usuario não existe\n')
+                        break
+                    }
                 }
             t++
+        }
+        if (categExiste == 0){
+            console.log('a categoria não existe ou não foi adicionada\n')
+            break
         }
     }
 }
